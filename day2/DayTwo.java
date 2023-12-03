@@ -18,8 +18,6 @@ public class DayTwo {
 
         Scanner scnr = new Scanner(new File("C:\\Users\\rlham\\aoc\\2023\\day2\\input.txt"));
         lines: while (scnr.hasNextLine()) {
-            int[] min = {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
-
             String game = scnr.nextLine();
             int colonIndex = game.indexOf(":");
             int id = Integer.parseInt(game.substring(game.indexOf(" ") + 1, colonIndex));
