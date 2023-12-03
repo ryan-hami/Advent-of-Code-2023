@@ -66,4 +66,4 @@ int main(int argc, char** argv) {
     printf("%d", result);
 
     return 0;
-}
+/* nice */ }
