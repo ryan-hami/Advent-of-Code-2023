@@ -7,7 +7,6 @@ int extract(char str[]) {
     
     for (i = 0; i < strlen(str); ++i) {
         if (isdigit(str[i])) {
-            printf("found a digit: %c\n", str[i]);
             first = str[i] - '0';
             break;
         }
@@ -15,7 +14,6 @@ int extract(char str[]) {
 
     for (i = strlen(str) - 1; i >= 0; --i) {
         if (isdigit(str[i])) {
-            printf("found a digit: %c\n", str[i]);
             last = str[i] - '0';
             break;
         }
