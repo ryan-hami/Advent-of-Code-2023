@@ -6,23 +6,19 @@ def read_prompt():
 
 def parse_prompt(prompt):
     numbers = {}
-    symbols = {}
     for i in range(len(prompt)):
         line = prompt[i]
 
         # entry(index: number)
         nums = {}
-        syms = []
         number = ''
         for j in range(len(line)):
             char = line[j]
             if char.isdigit(): number += char
             # if number isn't length 0
-            else:
-                if len(number):
-                    nums[j - len(number)] = number
-                    number = ''
-                if char != '.': syms.append(j)
+            elif len(number):
+                nums[j - len(number)] = number
+                number = ''
 
         # handle hanging number
         if len(number):
@@ -31,20 +27,57 @@ def parse_prompt(prompt):
 
         # if not empty
         if nums: numbers[i] = nums
-        if syms: symbols[i] = syms
 
-    return numbers, symbols
+    return numbers
 
 if __name__ == '__main__':
     prompt = read_prompt()
-    numbers, symbols = parse_prompt(prompt)
+    numbers = parse_prompt(prompt)
+    sum = 0
 
     for line, nums in numbers.items():
         for index, number in nums.items():
-            print(f'on line {line} at index {index} lives number {number}')
+            # print(f'on line {line} at index {index} lives number {number}')
 
-    print()
+            above = line - 1
+            below = line + 1
+            left = index - 1
+            right = index + len(number)
 
-    for line, indices in symbols.items():
-        for i in indices:
-            print(f'on line {line} at index {i} lives a symbol')
+            if right < len(prompt[line]):
+                val = prompt[line][right]
+                if val != '.' and not val.isdigit():
+                    sum += int(number)
+                    continue
+            else: right -= 1
+            
+            if left >= 0:
+                val = prompt[line][left]
+                if val != '.' and not val.isdigit():
+                    sum += int(number)
+                    continue
+            else: left += 1
+
+            hit = False
+
+            if above >= 0:
+                for i in range(left, right + 1):
+                    val = prompt[above][i]
+                    if val != '.' and not val.isdigit():
+                        hit = True
+                        sum += int(number)
+                        break
+            if hit: continue
+
+            if below < len(prompt):
+                for i in range(left, right + 1):
+                    val = prompt[below][i]
+                    if val != '.' and not val.isdigit():
+                        hit = True
+                        sum += int(number)
+                        break
+            if hit: continue
+
+    print(sum)
+
+
