@@ -3,16 +3,24 @@
 #include <string.h>
 
 int main() {
+    char result[3] = "  \0";
     char str[] = "l1t3r4l";
     int i = 0;
 
-    /* i am ignoring this working because i am convinced it is meaningless */
-    /* warning: ISO C90 does not support the '%llu' ms_printf format */
-    printf("the len is %llu", strlen(str));
-
-    /* int i = 0; INSANE WHY CAN'T I DECLARE A VARIABLE HERE */
-    for (/* WHY CAN'T I DELCARE A VARIABLE HERE */ i = 0; i < strlen(str); ++i) {
-        printf("%d", i);
+    for (i = 0; i < strlen(str); ++i) {
+        if (isdigit(str[i])) {
+            result[0] = str[i];
+            break;
+        }
     }
+
+    for (i = strlen(str) - 1; i >= 0; --i) {
+        if (isdigit(str[i])) {
+            result[1] = str[i];
+            break;
+        }
+    }
+
+    printf("%s", result);
     return 0;
 }
