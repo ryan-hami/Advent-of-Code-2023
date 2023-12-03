@@ -27,6 +27,7 @@ int evaluate(int i, char *str) {
         char *substr = calloc(1, &str[i + 1] - &str[j] + 1);
         memcpy(substr, &str[j], &str[i + 1] - &str[j]);
         val = digitWordMap(substr);
+        free(substr);
     }
 
     return val;
