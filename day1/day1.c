@@ -16,7 +16,7 @@ int digitWordMap(char* word) {
     return 0;
 }
 
-int evaluate(int i, char str[]) {
+int evaluate(int i, char *str) {
     int j, val;
 
     if (isdigit(str[i])) {
@@ -32,7 +32,7 @@ int evaluate(int i, char str[]) {
     return val;
 }
 
-int getFirst(char str[]) {
+int getFirst(char *str) {
     int i, val;
 
     for (i = 0, val = 0; val == 0 && i < strlen(str); ++i) {
@@ -42,7 +42,7 @@ int getFirst(char str[]) {
     return val;
 }
 
-int getLast(char str[]) {
+int getLast(char *str) {
     int i, val;
 
     for (i = strlen(str) - 1, val = 0; val == 0 && i >= 0; --i) {
@@ -52,7 +52,7 @@ int getLast(char str[]) {
     return val;
 }
 
-int extract(char str[]) {
+int extract(char *str) {
     return getFirst(str) * 10 + getLast(str);
 }
 
