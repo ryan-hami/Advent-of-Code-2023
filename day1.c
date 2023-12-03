@@ -3,10 +3,11 @@
 #include <string.h>
 
 int extract(char str[]) {
-    int i = 0, first, last;
+    int i = 0, first = 0, last = 0;
     
     for (i = 0; i < strlen(str); ++i) {
         if (isdigit(str[i])) {
+            printf("found a digit: %c\n", str[i]);
             first = str[i] - '0';
             break;
         }
@@ -14,6 +15,7 @@ int extract(char str[]) {
 
     for (i = strlen(str) - 1; i >= 0; --i) {
         if (isdigit(str[i])) {
+            printf("found a digit: %c\n", str[i]);
             last = str[i] - '0';
             break;
         }
@@ -22,14 +24,13 @@ int extract(char str[]) {
     return first * 10 + last;
 }
 
-int main() {
-    char line1[] = "1abc2";
-    char line2[] = "pqr3stu8vwx";
-    char line3[] = "a1b2c3d4e5f";
-    char line4[] = "treb7uchet";
-    int result = extract(line1) + extract(line2) + extract(line3) + extract(line4);
+int main(int argc, char** argv) {
+    int result = 0;
 
-    printf("answer %d", result);
+    for (--argc ; argc > 0; --argc) {
+        result += extract(argv[argc]);
+    }
 
+    printf("%d", result);
     return 0;
 }
