@@ -1,2 +1,7 @@
-.vscode
-.idea
+# vscode
+.vscode/
+
+# intellij
+.idea/
+out/
+*.iml
