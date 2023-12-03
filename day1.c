@@ -1,6 +1,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 int digitWordMap(char* word) {
     if (strcmp(word, "one") == 0) return 1;
@@ -15,35 +16,57 @@ int digitWordMap(char* word) {
     return 0;
 }
 
-int extract(char str[]) {
-    int i = 0, first = 0, last = 0;
-    
-    for (i = 0; i < strlen(str); ++i) {
-        if (isdigit(str[i])) {
-            first = str[i] - '0';
-            break;
-        }
+int evaluate(int i, char str[]) {
+    int j, val;
+
+    if (isdigit(str[i])) {
+        return str[i] - '0';
     }
+
+    val = 0;
+    for (j = i - 2; val == 0 && j >= 0 && j > i - 5; --j) {
+        char *substr = calloc(1, &str[i + 1] - &str[j] + 1);
+        memcpy(substr, &str[j], &str[i + 1] - &str[j]);
+        val = digitWordMap(substr);
+    }
+
+    return val;
+}
+
+int getFirst(char str[]) {
+    int i, val = 0;
+
+    for (i = 0; i < strlen(str); ++i) {
+        int val = evaluate(i, str);
+        if (val > 0) return val;
+    }
+
+    return val;
+}
+
+int getLast(char str[]) {
+    int i, val = 0;
 
     for (i = strlen(str) - 1; i >= 0; --i) {
-        if (isdigit(str[i])) {
-            last = str[i] - '0';
-            break;
-        }
+        int val = evaluate(i, str);
+        if (val > 0) return val;
     }
 
-    return first * 10 + last;
+    return val;
+}
+
+int extract(char str[]) {
+    return getFirst(str) * 10 + getLast(str);
 }
 
 int main(int argc, char** argv) {
-    /*int result = 0;
+    int result = 0;
 
     for (--argc ; argc > 0; --argc) {
         result += extract(argv[argc]);
     }
 
-    printf("%d", result);*/
+    printf("%d", result);
 
-    printf("%d", digitWordMap(argv[1]));
     return 0;
 }
