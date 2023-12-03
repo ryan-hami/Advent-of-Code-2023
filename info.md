@@ -4,3 +4,5 @@ gonna try day1 in c, dunno anything about it yet so will prob switch to python o
 
 compile
 gcc -Wall -std=c89 -pedantic-errors -g day1.c -o out/day1
+
+usage ./out/day1 arg1 arg2 arg3
