@@ -30,7 +30,6 @@ fun partTwo() {
 
 fun partOne() {
     var sum = 0
-    val nSpaces = "\\s+".toRegex()
     File("C:\\Users\\rlham\\aoc\\2023\\day4\\input.txt").forEachLine {
         val indexOfPipe = it.indexOf("|")
 
