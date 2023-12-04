@@ -1,6 +1,17 @@
-val winners: Set<Int> = setOf(41, 48, 83, 86, 17)
-val owned: Set<Int> = setOf(83, 86,  6, 31, 17,  9, 48, 53)
-val numWon: Int = owned.filter{i -> i in winners}.count()
-val amountWon: Int = Math.pow(2.0, numWon - 1.0).toInt()
+import java.io.File
 
-println("you won ${amountWon}")
+var sum = 0
+val nSpaces = "\\s+".toRegex()
+File("C:\\Users\\rlham\\aoc\\2023\\day4\\input.txt").forEachLine {
+    val indexOfPipe = it.indexOf("|")
+
+    val winners = it.substring(it.indexOf(":") + 1, indexOfPipe).trim().split(nSpaces)
+    val owned = it.substring(indexOfPipe + 1).trim().split(nSpaces)
+
+    val numWon = owned.filter{e -> e in winners}.count()
+    val amountWon = Math.pow(2.0, numWon - 1.0).toInt()
+
+    sum += amountWon
+}
+
+println("in all you won $$sum")
