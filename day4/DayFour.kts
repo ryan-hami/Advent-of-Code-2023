@@ -20,7 +20,7 @@ fun partTwo() {
     for (i in 0 until cardMap.size) {
         for (j in 1..accumulationMap[i]) {
             for (k in 1..cardMap[i]) {
-                accumulationMap[i + k] += 1
+                accumulationMap[i + k]++
             }
         }
     }
