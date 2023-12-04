@@ -1,3 +1,3 @@
 # AoC 2023
 
-yuh yuh yuh!!!! all my furnaces in tha HOUUUUUUUSS
+I am pretty sure you can upload solutions if the leaderboard is already full so...
