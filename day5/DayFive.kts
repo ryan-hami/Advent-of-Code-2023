@@ -25,4 +25,12 @@ for (line in lines.drop(2)) {
 
 fun getLocation(seed: Long): Long = maps.fold(seed) { source, map -> map.keys.firstOrNull { source in it }?.let { range -> source + map[range]!! } ?: source }
 val locations = seeds.map(::getLocation)
-println(locations.min())
+println("part 1 : ${locations.min()}")
+
+// part 2
+val seedRanges = seeds.chunked(2).map { (start, length) -> start until start + length }
+
+// kotlinc -J-Xmx8G -script DayFive.kts
+// don't effing judge me i am supposed to be studying for an exam
+val longMinLoc = seedRanges.flatten().minOf(::getLocation)
+println("part 2 : $longMinLoc")
