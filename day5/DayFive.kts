@@ -3,12 +3,11 @@ import java.io.File
 val input = File("C:\\Users\\rlham\\aoc\\2023\\day5\\input.txt")
 val lines = input.readLines()
 
-val seeds = lines[0].substring(7).split("\\s".toRegex()).map { s -> s.toInt() }
-val maps: List<MutableMap<Int, Int>> = List(7) { mutableMapOf() }
+val seeds = lines[0].substring(7).split("\\s".toRegex()).map { s -> s.toLong() }
+val maps: List<MutableMap<LongRange, Long>> = List(7) { mutableMapOf() }
 
 var index = -1
-for (i in 2 until lines.size) {
-    val line = lines[i]
+for (line in lines.drop(2)) {
     if (line == "") continue
     if (line.lastIndexOf(":") != -1) {
         ++index
@@ -16,18 +15,14 @@ for (i in 2 until lines.size) {
     }
 
     val entry = line.split(" ")
-    val destination = entry[0].toInt()
-    val source = entry[1].toInt()
-    val length = entry[2].toInt()
+    val destination = entry[0].toLong()
+    val source = entry[1].toLong()
+    val length = entry[2].toLong()
 
     val map = maps[index]
-    for (i in 0 until length) {
-        map.put(source + i, destination + i)
-    }
+    map.put(source until source + length, destination - source)
 }
 
-fun getLocation(seed: Int): Int =
-    maps.fold(seed) { source, map -> map[source] ?: source }
+fun getLocation(seed: Long): Long = maps.fold(seed) { source, map -> map.keys.firstOrNull { source in it }?.let { range -> source + map[range]!! } ?: source }
 val locations = seeds.map(::getLocation)
-
 println(locations.min())
